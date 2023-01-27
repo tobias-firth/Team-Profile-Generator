@@ -14,8 +14,6 @@ let employees = [];
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
-// If finish building team selected, generate HTML
-
 // Questions for the managers name, id, email and office number
 const managerQuestions = [
     {
@@ -109,7 +107,7 @@ const engineerQuestions = [
 ]
 
 
-
+// Function to pass the intern responses to the intern object constructor
 function getInternInfo(){
 inquirer
     .prompt(internQuestions).then((responseIntern) => {
@@ -125,10 +123,12 @@ inquirer
     })  
 }
 
+// Function to pass the engineer responses to the engineer object constructor
 function getEngineerInfo(){
 inquirer
     .prompt(engineerQuestions).then((responseEngineer) => {
         console.log(responseEngineer);
+        // Construct new engineer object and push to employees array
         employees.push(new Engineer(
             responseEngineer.engineerName, 
             responseEngineer.engineerId, 
@@ -139,12 +139,12 @@ inquirer
     }) 
 }    
 
-
+// Function to pass the manager responses to the manager object constructor and call the addEmployees function
 function addInfo(){
 inquirer
     .prompt(managerQuestions).then((responseManager) => {
         console.log(responseManager);
-
+        // Construct new manager object and push to employees array
         employees.push(new Manager(
             responseManager.managerName, 
             responseManager.managerId, 
@@ -155,22 +155,30 @@ inquirer
     })
 }
 
-
+// Function to call the intern, 
 function addEmployees() {
     return inquirer.prompt(pivotQuestion).then((response) => {
         console.log(response);
         
         if(response.options === "Add an Intern") {
+        // If add an intern is selected, call the function which prompts the intern questions.
             getInternInfo()
         }
         else if (response.options === "Add an Engineer"){
+        // If add an engineer is selected, call the function which prompts the engineer questions.
             getEngineerInfo()
         }
         else {
+            // If finish building team selected, generate HTML
             console.log('All Done!')
-            console.log(employees);
+            // console.log(employees);
+            // console.log(render(employees));
+            fs.writeFile(outputPath,render(employees),(err) => err ? console.log("err") : console.log("success"))
         }
     })
 }
 
+
+
 addInfo()
+
