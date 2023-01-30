@@ -1,10 +1,14 @@
 
 .team-heading {
-    background-color: red;
+    background-color: olivedrab;
+}
+
+h1 {
+    color:black;
 }
 
 .employee-card {
-    background-color: green;
+    background-color:olivedrab;
     margin:20px;
     border-radius: 15px;
 }
@@ -18,4 +22,15 @@
 .list-group > li {
     border:none;
     background-color: transparent;
+    color:white;
+}
+
+a {
+    color:white;
+}
+
+a:hover {
+    font-weight: bolder;
+    color:white;
+    text-decoration: none;
 }
